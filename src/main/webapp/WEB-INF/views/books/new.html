@@ -23,9 +23,9 @@
         </div>
         <div class="form-group col-md-6">
             <label for="description">Описание</label>
-            <input type="text" class="form-control" id="description" placeholder="Добавить описание" style="
-                   height: 200px;
-                    text-align: left">
+            <input type="text" class="form-control" th:field="*{description}" id="description" placeholder="Добавить описание"
+                   style=" height: 200px; text-align: left;">
+            <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">description Error</div>
         </div>
     </div>
     <input type="submit" value="Добавить" style="

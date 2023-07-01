@@ -3,15 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <title>People</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
-<div th:each="person : ${people}">
-    <a th:href="@{/people/{id}(id=${person.getId()})}"
-       th:text="${person.getName() + ', ' + person.getBirthDate()}">user</a>
-</div>
-<br/>
-<hr/>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}" style="font-family: 'Montserrat'">Read.me</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Пользователь
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/people/new}">Добавить</a></li>
+                        <li><a class="dropdown-item" th:href="@{/people}">Показать список</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBook" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Книга
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/books/new}">Добавить</a></li>
+                        <li><a class="dropdown-item" th:href="@{/books}">Показать список</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Отключенная</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <button class="btn btn-outline-success" type="submit" style="
+                        margin-right: 15px;
+                        ">Регистрация</button>
+                <button class="btn btn-outline-success" type="submit">Вход</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container-lg">
+    <h1>Список пользователей</h1>
+    <table class="table table-bordered table-rounded">
+        <thead>
+        <tr>
+            <th>№</th>
+            <th>ФИО</th>
+            <th>Дата рождения</th>
+            <th>Электронная почта</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="person, index : ${people}">
+            <td style="width: 1%;" th:text="${index.index+1}">0</td>
+            <td><a th:href="@{/people/{id}(id=${person.getId()})}"  th:text="${person.getName()}">user</a></td>
+            <td th:text="${person.getBirthDate()}">date</td>
+            <td th:text="${person.getEmail()}">email</td>
+            <td>
+                <div style="display: flex; justify-content: space-between;">
+                    <a th:href="@{/people/{id}(id=${person.getId()})}" class="btn btn-outline-primary">Посмотреть</a>
+                    <a th:href="@{/people/{id}/edit(id=${person.getId()})}" class="btn btn-outline-primary">Изменить</a>
+                    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
+                        <input type="submit" value="Удалить" class="btn btn-outline-danger"/>
+                    </form>
+                </div>
 
-<a href="/people/new">Create new person</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<hr/>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -6,28 +6,30 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}" th:object="${book}">
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="name">Название</label>
-            <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Введите название">
-            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+<div class="container-lg">
+    <form th:method="PATCH" th:action="@{/books/{id}(id=${book.getId()})}" th:object="${book}">
+        <div class="form-horizontal">
+            <div class="form-group col-md-6">
+                <label for="name">Название</label>
+                <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Введите название">
+                <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="author">Автор</label>
+                <input type="text" class="form-control" th:field="*{author}" id="author" placeholder="Введите автора">
+                <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">author Error</div>
+            </div>
+            <div class="form-group">
+                <label for="description">Описание</label>
+                <textarea class="form-control" th:field="*{description}" id="description" rows="5"></textarea>
+                <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">author Error</div>
+            </div>
         </div>
-        <div class="form-group col-md-6">
-            <label for="author">Автор</label>
-            <input type="text" class="form-control" th:field="*{author}" id="author" placeholder="Введите автора">
-            <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">author Error</div>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="description">Описание</label>
-            <input type="text" class="form-control" id="description" placeholder="Добавить описание" style="
-                   height: 200px;
-                    text-align: left">
-        </div>
-    </div>
-    <input type="submit" value="Добавить" style="
+        <input type="submit" value="Добавить" style="
                    margin-top: 50px;"/>
-</form>
+    </form>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
