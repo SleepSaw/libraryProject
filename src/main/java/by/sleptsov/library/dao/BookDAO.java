@@ -20,8 +20,7 @@ public class BookDAO {
     @Transactional
     public List<Book> index(){
         Session session = sessionFactory.getCurrentSession();
-        List<Book> books = session.createQuery("select b from Book b", Book.class).getResultList();
-        return books;
+        return session.createQuery("select b from Book b", Book.class).getResultList();
     }
    @Transactional
     public Book show(int id){
@@ -63,7 +62,6 @@ public class BookDAO {
         Session session = sessionFactory.getCurrentSession();
         Book book = session.find(Book.class, id);
         book.setOwner(null);
-//        jdbcTemplate.update("UPDATE book SET reader=null WHERE book.id=?",id);
     }
     @Transactional
     public void delete(int id){

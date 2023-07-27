@@ -3,27 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <title>Show</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
 </head>
 <body>
-<p th:text="${book.getName() + ', ' + book.getAuthor()}">VALUE</p>
-<p th:text="${book.getId()}">VALUE</p>
-
-<a th:href="@{/books/{id}/edit(id=${book.getId()})}">Edit</a>
-
-<form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
-    <input type="submit" value="Delete"/>
-</form>
-<form th:method="POST" th:action="@{/books/{id}(id=${book.getId()})}" th:if="${people}">
-    <label for="person">Выберите человека</label>
-    <select th:object="${person}" th:field="*{id}" id="person">
-        <option th:each="person: ${people}" th:value="${person.getId()}"
-        th:text="${person.getName()}"></option>
-    </select>
-    <input type="submit" value="Назначить книгу"/>
-</form>
-<form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}" th:if="${owner}">
-    <p th:text="${owner.getName()} +' уже забрал эту книгу'"></p>
-    <input type="submit" value="Освободить книгу"/>
-</form>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}" style="font-family: 'Montserrat'">Read.me</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Пользователь
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/people/new}">Добавить</a></li>
+                        <li><a class="dropdown-item" th:href="@{/people}">Показать список</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBook" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Книга
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/books/new}">Добавить</a></li>
+                        <li><a class="dropdown-item" th:href="@{/books}">Показать список</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Отключенная</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <button class="btn btn-outline-success" type="submit" style="
+                        margin-right: 15px;
+                        ">Регистрация</button>
+                <button class="btn btn-outline-success" type="submit">Вход</button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Отображение книги</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${book.getName()}">Название книги</h5>
+                    <p class="card-text" th:text="${book.getDescription()}">Описание</p>
+                    <hr>
+                    <h6 class="card-subtitle mb-3">Автор</h6>
+                    <p class="card-text" th:text="${book.getAuthor()}">Имя автора</p>
+                    <hr>
+                    <form th:method="POST" th:action="@{/books/{id}(id=${book.getId()})}" th:if="${people}">
+                        <h6 class="card-subtitle mb-3" for="person">Выберите человека</h6>
+                        <select class="form-select" th:object="${person}" th:field="*{id}" id="person">
+                            <option th:each="person: ${people}" th:value="${person.getId()}"
+                                    th:text="${person.getName()}"></option>
+                        </select>
+                        <button class="btn btn-outline-primary" type="submit">Назначить книгу</button>
+                    </form>
+                    <form th:method="PATCH" th:action="@{/books/{id}/release(id=${book.getId()})}" th:if="${owner}">
+                        <h6 class="card-subtitle mb-3" th:text="${owner.getName()} +' уже забрал эту книгу'"></h6>
+                        <button class="btn btn-outline-primary" type="submit">Освободить книгу</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

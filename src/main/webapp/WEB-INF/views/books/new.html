@@ -7,30 +7,80 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
 </head>
-<body style="margin-top: 10px; margin-left: 10px;">
-<h1>Добавить книгу</h1>
-<form th:method="POST" th:action="@{/books}" th:object="${book}">
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="name">Название</label>
-            <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Введите название">
-            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="author">Автор</label>
-            <input type="text" class="form-control" th:field="*{author}" id="author" placeholder="Введите автора">
-            <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">author Error</div>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="description">Описание</label>
-            <input type="text" class="form-control" th:field="*{description}" id="description" placeholder="Добавить описание"
-                   style=" height: 200px; text-align: left;">
-            <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">description Error</div>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}" style="font-family: 'Montserrat'">Read.me</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Главная</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Пользователь
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/people/new}">Добавить</a></li>
+                        <li><a class="dropdown-item" th:href="@{/people}">Показать список</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBook" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Книга
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" th:href="@{/books/new}">Добавить</a></li>
+                        <li><a class="dropdown-item" th:href="@{/books}">Показать список</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Отключенная</a>
+                </li>
+            </ul>
+            <form class="d-flex">
+                <button class="btn btn-outline-success" type="submit" style="
+                        margin-right: 15px;
+                        ">Регистрация</button>
+                <button class="btn btn-outline-success" type="submit">Вход</button>
+            </form>
         </div>
     </div>
-    <input type="submit" value="Добавить" style="
-                   margin-top: 50px;"/>
-</form>
+</nav>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>Добавление книги</h4>
+                </div>
+                <div class="card-body">
+                    <form th:method="POST" th:action="@{/books}" th:object="${book}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Название книги</label>
+                            <input type="text" class="form-control" th:field="*{name}" id="name" name="name" required>
+                            <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="author" class="form-label">Автор книги</label>
+                            <input type="text" class="form-control" th:field="*{author}" id="author" name="author" required>
+                            <div style="color:red" th:if="${#fields.hasErrors('author')}" th:errors="*{author}">author Error</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Описание книги</label>
+                            <textarea class="form-control" id="description" th:field="*{description}" name="description" rows="4" required></textarea>
+                            <div style="color:red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">description Error</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
